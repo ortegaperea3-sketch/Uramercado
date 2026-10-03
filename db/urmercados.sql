@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS urmercados CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE urmercados;
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS movimiento; DROP TABLE IF EXISTS producto; DROP TABLE IF EXISTS categoria; DROP TABLE IF EXISTS usuario;
+SET FOREIGN_KEY_CHECKS=1;
+CREATE TABLE usuario(id_usuario INT AUTO_INCREMENT PRIMARY KEY,nombre VARCHAR(100) NOT NULL,usuario VARCHAR(50) NOT NULL UNIQUE,password_hash VARCHAR(255) NOT NULL,rol ENUM('propietario','colaborador') NOT NULL DEFAULT 'colaborador',estado TINYINT(1) NOT NULL DEFAULT 1);
+CREATE TABLE categoria(id_categoria INT AUTO_INCREMENT PRIMARY KEY,nombre VARCHAR(100) NOT NULL UNIQUE,estado TINYINT(1) NOT NULL DEFAULT 1);
+CREATE TABLE producto(id_producto INT AUTO_INCREMENT PRIMARY KEY,id_categoria INT NOT NULL,codigo VARCHAR(50) NOT NULL UNIQUE,nombre VARCHAR(120) NOT NULL,unidad VARCHAR(30) NOT NULL,precio_referencia DECIMAL(12,2) NOT NULL DEFAULT 0,stock_actual INT NOT NULL DEFAULT 0,stock_minimo INT NOT NULL DEFAULT 0,estado TINYINT(1) NOT NULL DEFAULT 1,CONSTRAINT fk_producto_categoria FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria));
+CREATE TABLE movimiento(id_movimiento INT AUTO_INCREMENT PRIMARY KEY,id_producto INT NOT NULL,id_usuario INT NOT NULL,tipo ENUM('entrada','salida') NOT NULL,cantidad INT NOT NULL,fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,observacion VARCHAR(255),CONSTRAINT fk_mov_producto FOREIGN KEY(id_producto) REFERENCES producto(id_producto),CONSTRAINT fk_mov_usuario FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),INDEX idx_mov_fecha(fecha),INDEX idx_mov_producto(id_producto));
+INSERT INTO usuario(nombre,usuario,password_hash,rol) VALUES('Administrador Uramercados','admin','$2y$12$xUmQ9KzhMDkD.RA.ZTyKwuUHrUZajJkBEEVl6ubNzLGZ.oO0agxMq','propietario'),('Colaborador Demo','colaborador','$2y$12$xUmQ9KzhMDkD.RA.ZTyKwuUHrUZajJkBEEVl6ubNzLGZ.oO0agxMq','colaborador');
+INSERT INTO categoria(nombre) VALUES('Abarrotes'),('Bebidas'),('Aseo');
+INSERT INTO producto(id_categoria,codigo,nombre,unidad,precio_referencia,stock_actual,stock_minimo) VALUES(1,'ARZ001','Arroz 1 kg','unidad',4500,20,5),(1,'AZU001','Azúcar 1 kg','unidad',4200,4,5),(2,'GAS001','Gaseosa 1.5 L','unidad',6500,12,4),(3,'JAB001','Jabón en polvo 1 kg','unidad',7800,3,4),(3,'PAP001','Papel higiénico x4','paquete',9500,15,5);
+INSERT INTO movimiento(id_producto,id_usuario,tipo,cantidad,observacion) VALUES(1,1,'entrada',20,'Carga inicial'),(2,1,'entrada',10,'Carga inicial'),(2,1,'salida',6,'Venta mostrador'),(3,1,'entrada',12,'Carga inicial'),(4,1,'entrada',3,'Carga inicial'),(5,1,'entrada',15,'Carga inicial');
