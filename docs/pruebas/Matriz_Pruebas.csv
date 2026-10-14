@@ -1,0 +1,29 @@
+ID;Modulo;Caso;Resultado esperado;Estado;Evidencia
+CP-01;Acceso;Login válido;Ingreso al dashboard;Pendiente;E01
+CP-02;Acceso;Contraseña incorrecta;Mensaje de error;Pendiente;E01
+CP-03;Acceso;Usuario inexistente;Mensaje de error;Pendiente;E01
+CP-04;Seguridad;Acceso directo sin sesión;Redirección al login;Pendiente;E01
+CP-05;Sesión;Cerrar sesión;Sesión destruida;Pendiente;E10
+CP-06;Dashboard;Indicadores;Datos visibles;Pendiente;E02
+CP-07;Inventario;Listado;Productos visibles;Pendiente;E03
+CP-08;Inventario;Búsqueda;Coincidencias filtradas;Pendiente;E03
+CP-09;Inventario;Bajo stock;Alerta visible;Pendiente;E02
+CP-10;Movimientos;Entrada válida;Stock incrementado;Pendiente;E04
+CP-11;Movimientos;Salida válida;Stock reducido;Pendiente;E05
+CP-12;Movimientos;Salida superior al stock;Operación rechazada;Pendiente;E05
+CP-13;Movimientos;Cantidad cero;Validación;Pendiente;E04
+CP-14;Movimientos;Cantidad negativa;Validación;Pendiente;E04
+CP-15;Movimientos;Producto inexistente;No registra;Pendiente;E04
+CP-16;Historial;Filtro producto;Resultados filtrados;Pendiente;E06
+CP-17;Historial;Filtro tipo;Resultados filtrados;Pendiente;E06
+CP-18;Historial;Filtro fecha;Resultados filtrados;Pendiente;E06
+CP-19;Reportes;Reporte inventario;Reporte visible;Pendiente;E07
+CP-20;Reportes;Recomendación;Recomendación visible;Pendiente;E07
+CP-21;Productos;Crear;Producto creado;Pendiente;E08
+CP-22;Productos;Editar;Producto actualizado;Pendiente;E08
+CP-23;Categorías;Crear;Categoría creada;Pendiente;E09
+CP-24;Roles;Restricción colaborador;Acceso restringido;Pendiente;E10
+CP-25;Seguridad;XSS;Texto escapado;Pendiente;E08
+CP-26;Persistencia;Recarga;Stock persistente;Pendiente;E05
+CP-27;Integridad;Transacción;Datos consistentes;Pendiente;E05
+CP-28;UI;Navegación;Módulos accesibles;Pendiente;E02
